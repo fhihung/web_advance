@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -49,7 +50,7 @@ Route::apiResource('category-products', tbl_categoryProductController::class);
 Route::get('carts/user/{user_id}', [CartController::class, 'getCartByUserId']);
 
 //// Route để thêm sản phẩm vào giỏ hàng
-Route::post('carts/add-to-cart', [CartController::class, 'addToCart']);
+Route::post('carts/add', [CartController::class, 'addToCart']);
 
 // Route để get sản phẩm mới nhất
 Route::get('new-products', [tbl_ProductController::class, 'getNewProducts']);
@@ -59,3 +60,9 @@ Route::get('products_by_category_id/{category_id}', [tbl_ProductController::clas
 
 // Route để get sản phẩm theo brand_id
 Route::get('products_by_brand_id/{brand_id}', [tbl_ProductController::class, 'getProductsByBrandId']);
+
+// Route để lấy wishlist theo user_id
+Route::get('wishlists/user/{user_id}', [WishlistController::class, 'getWishlistByUserId']);
+
+// Route để thêm sản phẩm vào wishlist
+Route::post('wishlists/add', [WishlistController::class, 'addToWishlist']);

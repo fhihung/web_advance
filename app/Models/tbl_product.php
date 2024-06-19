@@ -29,8 +29,12 @@ class tbl_product extends Model
     {
         return $this->belongsTo(tbl_brand::class, 'brand_id', 'brand_id');
     }
-    public function carts()
+    public function cart()
     {
-        return $this->hasMany(Cart::class);
+        return $this->hasMany(Cart::class, 'product_id', 'product_id');
+    }
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class, 'product_id', 'product_id');
     }
 }
