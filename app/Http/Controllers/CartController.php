@@ -36,4 +36,12 @@ class CartController extends Controller
         Cart::findOrFail($id)->delete();
         return response()->json(null, 204);
     }
+    public function getCartByUserId($user_id)
+    {
+        // Truy vấn cơ sở dữ liệu để lấy giỏ hàng theo user_id
+        $carts = Cart::where('user_id', $user_id)->get();
+
+        // Trả về danh sách giỏ hàng dưới dạng JSON
+        return response()->json($carts, 200);
+    }
 }

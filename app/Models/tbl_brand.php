@@ -17,6 +17,6 @@ class tbl_brand extends Model
     ];
     public function tbl_product()
     {
-        return $this->hasMany(tbl_product::class);
+        return $this->hasMany(tbl_product::class, 'brand_id', 'brand_id');
     }
 }

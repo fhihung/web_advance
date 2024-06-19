@@ -19,6 +19,7 @@ class tbl_product extends Model
         'product_price',
         'product_image',
         'product_status',
+        'new',
     ];
     public function tbl_category_product()
     {
@@ -26,7 +27,7 @@ class tbl_product extends Model
     }
     public function tbl_brand()
     {
-        return $this->belongsTo(tbl_brand::class);
+        return $this->belongsTo(tbl_brand::class, 'brand_id', 'brand_id');
     }
     public function carts()
     {
