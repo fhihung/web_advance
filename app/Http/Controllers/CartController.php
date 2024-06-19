@@ -44,4 +44,27 @@ class CartController extends Controller
         // Trả về danh sách giỏ hàng dưới dạng JSON
         return response()->json($carts, 200);
     }
+    public function addToCart(Request $request)
+    {
+        // Xác thực dữ liệu đầu vào
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer|exists:users,id',
+            'product_id' => 'required|integer|exists:tbl_products,product_id',
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        // Tạo hoặc cập nhật mục giỏ hàng
+        $cartItem = Cart::updateOrCreate(
+            [
+                'user_id' => $validatedData['user_id'],
+                'product_id' => $validatedData['product_id']
+            ],
+            [
+                'quantity' => \DB::raw('quantity + ' . $validatedData['quantity'])
+            ]
+        );
+
+        // Trả về phản hồi JSON
+        return response()->json($cartItem, 201);
+    }
 }

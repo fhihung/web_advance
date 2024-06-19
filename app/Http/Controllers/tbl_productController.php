@@ -38,8 +38,21 @@ class tbl_productController extends Controller
     }
     public function getNewProducts()
     {
-        $newProducts = tbl_product::where('new', 1)->with('tbl_brand')->get();
+        $newProducts = tbl_product::where('new', 1)->with('tbl_brand','tbl_category_product')->get();
         return response()->json($newProducts);
+    }
+    public function getProductsByCategoryId($category_id)
+    {
+        $products = tbl_product::where('cate_id', $category_id)->get();
+
+        return response()->json($products);
+    }
+
+    public function getProductsByBrandId($brand_id)
+    {
+        $products = tbl_product::where('brand_id', $brand_id)->with('tbl_brand')->get();
+
+        return response()->json($products);
     }
 
 }

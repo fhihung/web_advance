@@ -48,5 +48,14 @@ Route::apiResource('category-products', tbl_categoryProductController::class);
 // Route để lấy giỏ hàng theo user_id
 Route::get('carts/user/{user_id}', [CartController::class, 'getCartByUserId']);
 
+//// Route để thêm sản phẩm vào giỏ hàng
+Route::post('carts/add-to-cart', [CartController::class, 'addToCart']);
+
 // Route để get sản phẩm mới nhất
 Route::get('new-products', [tbl_ProductController::class, 'getNewProducts']);
+
+// Route để get sản phẩm theo category_id
+Route::get('products_by_category_id/{category_id}', [tbl_ProductController::class, 'getProductsByCategoryId']);
+
+// Route để get sản phẩm theo brand_id
+Route::get('products_by_brand_id/{brand_id}', [tbl_ProductController::class, 'getProductsByBrandId']);
