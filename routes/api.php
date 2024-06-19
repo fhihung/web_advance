@@ -11,6 +11,7 @@ use App\Http\Controllers\DrinkController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AccessHistoryController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,14 @@ Route::apiResource('menus', MenuController::class);
 Route::apiResource('invoices', InvoiceController::class);
 Route::apiResource('payments', PaymentController::class);
 Route::apiResource('access-histories', AccessHistoryController::class);
+
+Route::middleware('auth.token')->get('/me', function (Request $request) {
+    return $request->user();
+});
+
+Route::controller(AuthController::class)->group(function ($router) {
+    Route::post('login', 'login')->name('login');
+    Route::post('register', 'register')->name('register');
+    Route::post('logout', 'logout')->name('logout')->middleware('auth.token');
+    Route::post('refresh', 'refresh')->name('refresh');
+});
